@@ -149,11 +149,13 @@ export function GlobalKPICards() {
     // Get market name from metadata, fallback to "Global Market"
     const marketName = data.metadata.market_name || 'Global Market'
 
-    const geographyLabel = actualSelectedGeographies.length === 0
-      ? `Global ${marketName}`
-      : actualSelectedGeographies.length === 1
-      ? `${actualSelectedGeographies[0]} ${marketName}`
-      : `${actualSelectedGeographies.length} Geographies ${marketName}`
+    // No geography filter: do not show "Global" (misleading when nothing is selected)
+    const geographyLabel =
+      actualSelectedGeographies.length === 0
+        ? marketName
+        : actualSelectedGeographies.length === 1
+          ? `${actualSelectedGeographies[0]} ${marketName}`
+          : `${actualSelectedGeographies.length} Geographies ${marketName}`
     const segmentTypeLabel = targetSegmentType || 'All Segments'
 
     return {
